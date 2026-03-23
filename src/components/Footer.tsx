@@ -20,8 +20,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
-            <Link href="/" className="text-xl font-extrabold text-white mb-4 block">
-              Smart<span className="text-brand-500">Space</span>
+            <Link href="/" className="mb-4 block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/Logo1.png" alt="Smart Space" className="h-10 w-auto brightness-0 invert" />
             </Link>
             <p className="text-sm leading-relaxed">
               Ireland&apos;s trusted Ring installer. Professional installation across Ireland.

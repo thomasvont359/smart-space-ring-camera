@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { href: "/products", label: "Products" },
@@ -16,6 +17,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { cart, openCart } = useCart();
+
+  const totalItems = cart?.totalQuantity ?? 0;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -42,10 +46,11 @@ export default function Navbar() {
         }`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-24">
             {/* Logo */}
-            <Link href="/" className="text-xl font-extrabold text-[#1a1a1a]">
-              Smart<span className="text-brand-500">Space</span>
+            <Link href="/">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/Logo1.png" alt="Smart Space" className="h-20 w-auto" />
             </Link>
 
             {/* Desktop Nav */}
@@ -65,24 +70,42 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:block">
+            {/* Desktop CTA + Cart */}
+            <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/products"
                 className="bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-colors"
               >
                 Shop Now
               </Link>
+              <button onClick={openCart} className="relative p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <ShoppingBag className="w-5 h-5 text-[#1a1a1a]" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-brand-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
             </div>
 
-            {/* Mobile toggle */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-[#1a1a1a]"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+            {/* Mobile: Cart + toggle */}
+            <div className="flex md:hidden items-center gap-2">
+              <button onClick={openCart} className="relative p-2">
+                <ShoppingBag className="w-5 h-5 text-[#1a1a1a]" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-brand-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 text-[#1a1a1a]"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu */}

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata: Metadata = {
   title: "Smart Space | Ring Doorbells & Security Cameras Ireland",
@@ -33,9 +35,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-white text-gray-900" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <CartDrawer />
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

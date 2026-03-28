@@ -3,13 +3,13 @@ import { Shield, Truck, Headphones, Award } from "lucide-react";
 const badges = [
   {
     icon: Shield,
-    title: "Authorised Installer",
-    description: "Official Ring authorised installer for Ireland",
+    title: "5-Star Installer",
+    description: "Dublin's only 5-star Ring installer",
   },
   {
     icon: Truck,
     title: "Free Delivery",
-    description: "Free shipping on all orders across Ireland",
+    description: "Free shipping on all orders across Leinster",
   },
   {
     icon: Headphones,

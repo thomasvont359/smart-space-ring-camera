@@ -19,13 +19,13 @@ export default function WholeHomeSection() {
               Whole-home security,<br />one step at a time.
             </h2>
             <p className="text-[#666] text-base mb-6 leading-relaxed">
-              Start with a doorbell and expand to cameras, alarms, and more. Every Ring device works together through the Ring app.
+              Start with a doorbell and expand to cameras, floodlights, and more. Every Ring device works together through the Ring app.
             </p>
             <Link
-              href="/products"
+              href="/services"
               className="inline-block bg-[#1a1a1a] hover:bg-black text-white font-semibold text-sm px-8 py-3 rounded-full transition-colors"
             >
-              Browse All Products
+              Browse All Services
             </Link>
           </div>
         </div>

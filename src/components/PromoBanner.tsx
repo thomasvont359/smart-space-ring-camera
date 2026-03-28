@@ -8,7 +8,7 @@ export default function PromoBanner() {
           We don&apos;t just sell Ring.<br />We install it.
         </h2>
         <p className="text-[#999] text-base sm:text-lg max-w-xl mx-auto mb-8">
-          As Ireland&apos;s authorised Ring installer, we deliver and professionally set up your entire system.
+          As Leinster&apos;s top-rated Ring installer, we deliver and professionally set up your entire system.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
@@ -18,7 +18,7 @@ export default function PromoBanner() {
             Book Free Consultation
           </Link>
           <Link
-            href="/installation"
+            href="/services/installation-only"
             className="inline-block border border-[#444] hover:border-[#666] text-white font-semibold text-sm px-8 py-3 rounded-full transition-colors"
           >
             Learn More

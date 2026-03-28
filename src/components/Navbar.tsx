@@ -7,11 +7,10 @@ import { Menu, X, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 const navLinks = [
-  { href: "/products", label: "Products" },
-  { href: "/installation", label: "Installation" },
+  { href: "/services", label: "Services" },
+  { href: "/reviews", label: "Reviews" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: "https://smartcareliving.ie", label: "SmartGuardian", external: true },
 ];
 
 export default function Navbar() {
@@ -32,10 +31,10 @@ export default function Navbar() {
     <>
       {/* Promo strip */}
       <div className="fixed top-0 left-0 right-0 z-[60] bg-brand-500 text-white text-center py-2 px-4 text-sm font-medium">
-        Save up to 58% on Ring Camera Bundles.{" "}
-        <Link href="/products" className="underline font-bold">
-          Shop Deals
-        </Link>
+        We&apos;ve Expanded! Our award-winning eldercare services have moved to SmartCareLiving.{" "}
+        <a href="https://smartcareliving.ie" target="_blank" rel="noopener noreferrer" className="underline font-bold">
+          Learn More
+        </a>
       </div>
 
       {/* Nav */}
@@ -56,41 +55,23 @@ export default function Navbar() {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) =>
-                link.external ? (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium transition-colors text-[#555] hover:text-[#1a1a1a]"
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`text-sm font-medium transition-colors ${
-                      pathname === link.href
-                        ? "text-brand-500"
-                        : "text-[#555] hover:text-[#1a1a1a]"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors ${
+                    pathname === link.href || pathname.startsWith(link.href + "/")
+                      ? "text-brand-500"
+                      : "text-[#555] hover:text-[#1a1a1a]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
 
-            {/* Desktop CTA + Cart */}
-            <div className="hidden md:flex items-center gap-4">
-              <Link
-                href="/products"
-                className="bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-colors"
-              >
-                Shop Now
-              </Link>
+            {/* Desktop Cart */}
+            <div className="hidden md:flex items-center">
               <button onClick={openCart} className="relative p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <ShoppingBag className="w-5 h-5 text-[#1a1a1a]" />
                 {totalItems > 0 && (
@@ -124,36 +105,16 @@ export default function Navbar() {
           {/* Mobile Menu */}
           {isOpen && (
             <div className="md:hidden border-t border-[#eee] py-4 space-y-1 bg-white">
-              {navLinks.map((link) =>
-                link.external ? (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="block py-2.5 px-2 text-sm font-medium text-[#333] hover:text-brand-500"
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block py-2.5 px-2 text-sm font-medium text-[#333] hover:text-brand-500"
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
-              <Link
-                href="/products"
-                onClick={() => setIsOpen(false)}
-                className="block mt-3 text-center bg-brand-500 text-white font-semibold text-sm py-3 rounded-full"
-              >
-                Shop Now
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="block py-2.5 px-2 text-sm font-medium text-[#333] hover:text-brand-500"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           )}
         </nav>

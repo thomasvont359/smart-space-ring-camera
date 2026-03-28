@@ -6,15 +6,15 @@ import CartDrawer from "@/components/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
 
 export const metadata: Metadata = {
-  title: "Smart Space | Ring Doorbells & Security Cameras Ireland",
+  title: "Smart Space | Ring Doorbells & Security Cameras Leinster",
   description:
-    "Ireland's trusted Ring installer. Shop Ring doorbells, security cameras, alarm systems and smart home bundles. Professional installation available.",
+    "Leinster's trusted Ring installer. Shop Ring doorbells, security cameras and smart home bundles. Professional installation available.",
   keywords:
-    "Ring doorbell Ireland, Ring camera Ireland, Ring security, smart home Ireland, Ring installer Dublin",
+    "Ring doorbell Leinster, Ring camera Leinster, Ring security, smart home Leinster, Ring installer Dublin",
   openGraph: {
-    title: "Smart Space | Ring Doorbells & Security Cameras Ireland",
+    title: "Smart Space | Ring Doorbells & Security Cameras Leinster",
     description:
-      "Shop Ring doorbells, security cameras and alarm systems. Professional installation across Ireland.",
+      "Shop Ring doorbells and security cameras. Professional installation across Leinster.",
     type: "website",
   },
 };

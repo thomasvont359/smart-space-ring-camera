@@ -5,7 +5,7 @@ import ContactForm from "@/components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact Us | Smart Space",
   description:
-    "Get in touch with Smart Space. Book a free consultation for Ring doorbell and security camera installation in Ireland.",
+    "Get in touch with Smart Space. Book a free consultation for Ring doorbell and security camera installation in Leinster.",
 };
 
 export default function ContactPage() {
@@ -41,7 +41,7 @@ export default function ContactPage() {
                   {
                     icon: Phone,
                     label: "Phone",
-                    value: "+353 1 513 0424",
+                    value: "01 513 0424",
                     href: "tel:+35315130424",
                   },
                   {
@@ -95,7 +95,7 @@ export default function ContactPage() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8 lg:p-10 shadow-sm">
               <h2 className="text-xl font-bold text-gray-900 mb-6">
-                Send us a message
+                Book a Consultation
               </h2>
               <ContactForm />
             </div>

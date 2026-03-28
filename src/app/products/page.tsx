@@ -14,7 +14,7 @@ export default function ProductsPage() {
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl">
             Browse our complete range of Ring security products. All products come with
-            optional professional installation across Ireland.
+            professional installation included across Leinster.
           </p>
         </div>
 

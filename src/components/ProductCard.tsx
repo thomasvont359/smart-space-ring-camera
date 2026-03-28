@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: ShopifyProduct }) {
   return (
     <Link
       href={`/products/${product.handle}`}
-      className="group block bg-[#f5f5f5] rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
+      className="group block bg-transparent rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
     >
       {/* Image */}
       <div className="relative aspect-square flex items-center justify-center mb-4">

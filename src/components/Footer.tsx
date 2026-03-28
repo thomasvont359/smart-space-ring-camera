@@ -1,15 +1,16 @@
 import Link from "next/link";
 
-const productLinks = [
-  { href: "/products/doorbells", label: "Video Doorbells" },
-  { href: "/products/cameras", label: "Security Cameras" },
-  { href: "/products/bundles", label: "Bundles & Packs" },
-  { href: "/products/services", label: "Services" },
+const serviceLinks = [
+  { href: "/services/doorbell", label: "Video Doorbell" },
+  { href: "/services/camera", label: "Floodlight Camera" },
+  { href: "/services/driveway-bundle", label: "Driveway Bundle" },
+  { href: "/services/whole-home-bundle", label: "Whole Home Bundle" },
+  { href: "/services/installation-only", label: "Installation Only" },
 ];
 
 const companyLinks = [
   { href: "/about", label: "About Us" },
-  { href: "/installation", label: "Installation" },
+  { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -25,15 +26,15 @@ export default function Footer() {
               <img src="/Logo1.png" alt="Smart Space" className="h-10 w-auto brightness-0 invert" />
             </Link>
             <p className="text-sm leading-relaxed">
-              Ireland&apos;s trusted Ring installer. Professional installation across Ireland.
+              Leinster&apos;s trusted Ring installer. Professional installation across Leinster.
             </p>
           </div>
 
-          {/* Products */}
+          {/* Services */}
           <div>
-            <h3 className="text-white font-semibold text-sm mb-4">Products</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Services</h3>
             <ul className="space-y-2.5">
-              {productLinks.map((link) => (
+              {serviceLinks.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-sm hover:text-white transition-colors">
                     {link.label}
@@ -68,7 +69,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="tel:+35315130424" className="hover:text-white transition-colors">
-                  +353 1 513 0424
+                  01 513 0424
                 </a>
               </li>
               <li>Dublin, Ireland</li>
@@ -80,7 +81,7 @@ export default function Footer() {
       <div className="border-t border-[#333]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
           <p>&copy; {new Date().getFullYear()} Smart Space. All rights reserved.</p>
-          <p>Authorised Ring Installer</p>
+          <p>Dublin&apos;s Only 5-Star Ring Installer</p>
         </div>
       </div>
     </footer>

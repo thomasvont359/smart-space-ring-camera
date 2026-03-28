@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Wrench, Clock, Shield, Wifi, Check, ArrowRight, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Professional Installation | Smart Space",
+  title: "Installation Only & Other Brands | Smart Space",
   description:
-    "Professional Ring installation across Leinster. We mount, wire, connect, and configure your entire Ring system. Book a free consultation today.",
+    "Professional installation for Ring, Eufy, Nest, and Tapo devices across Leinster. Same price for all brands.",
 };
 
 const services = [
@@ -22,7 +22,7 @@ const services = [
   {
     icon: Shield,
     title: "Tailored Configuration",
-    description: "We set up the Ring app on your phone, configure motion zones, alerts, linked devices, and shared users.",
+    description: "We set up the app on your phone, configure motion zones, alerts, linked devices, and shared users.",
   },
   {
     icon: Clock,
@@ -31,46 +31,15 @@ const services = [
   },
 ];
 
-const packages = [
-  {
-    name: "Doorbell Install",
-    price: "From €79",
-    features: [
-      "Ring doorbell mounting",
-      "Wiring (if hardwired model)",
-      "App setup & configuration",
-      "Motion zone setup",
-      "Wi-Fi signal check",
-    ],
-  },
-  {
-    name: "Camera Package",
-    price: "From €99",
-    popular: true,
-    features: [
-      "Up to 2 cameras installed",
-      "Indoor or outdoor mounting",
-      "Optimal positioning advice",
-      "App setup & linked devices",
-      "Motion detection tuning",
-      "Wi-Fi signal check",
-    ],
-  },
-  {
-    name: "Whole Home",
-    price: "From €199",
-    features: [
-      "Doorbell + cameras + floodlights",
-      "Full system installation",
-      "Network optimisation",
-      "Complete app configuration",
-      "Linked devices setup",
-      "User training session",
-    ],
-  },
+
+const brands = [
+  { name: "Ring", logo: "/Ring.png" },
+  { name: "Eufy", logo: "/Eufy.png" },
+  { name: "Nest", logo: "/Nest_logo.png" },
+  { name: "Tapo", logo: "/Tapo.png", className: "h-28" },
 ];
 
-export default function InstallationPage() {
+export default function InstallationOnlyPage() {
   return (
     <div className="pt-28 lg:pt-32">
       {/* Hero */}
@@ -85,23 +54,22 @@ export default function InstallationPage() {
         </div>
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block bg-brand-500/20 text-brand-400 text-sm font-semibold px-4 py-2 rounded-full mb-6">
-            Professional Service
+            Installation Only
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
-            We don&apos;t just sell Ring.
+            Already have a device?
             <br />
-            <span className="text-brand-400">We install it.</span>
+            <span className="text-brand-400">We&apos;ll install it.</span>
           </h1>
           <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Dublin&apos;s only 5-star Ring installer. Professional mounting, wiring,
-            and configuration for your complete peace of mind.
+            Professional installation for all major smart home brands — same expert service, same price.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
               className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-full transition-all shadow-lg"
             >
-              Book Free Consultation
+              Book Installation
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
@@ -111,6 +79,27 @@ export default function InstallationPage() {
               <Phone className="h-4 w-4" />
               Call Us Now
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Supported Brands */}
+      <section className="py-12 bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
+            We install all major brands at the same price
+          </p>
+          <div className="flex items-center justify-center gap-8 sm:gap-12 flex-wrap">
+            {brands.map((brand) => (
+              <div key={brand.name} className="flex items-center justify-center">
+                {brand.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={brand.logo} alt={brand.name} className={`${brand.className || "h-14"} opacity-60`} />
+                ) : (
+                  <span className="text-xl font-bold text-gray-400">{brand.name}</span>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -141,57 +130,6 @@ export default function InstallationPage() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="py-16 lg:py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
-              Installation Packages
-            </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">
-              Transparent pricing with no hidden fees
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {packages.map((pkg) => (
-              <div
-                key={pkg.name}
-                className={`bg-white rounded-2xl p-8 shadow-sm border-2 ${
-                  pkg.popular ? "border-brand-500 relative" : "border-transparent"
-                }`}
-              >
-                {pkg.popular && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-xs font-bold px-4 py-1.5 rounded-full">
-                    Most Popular
-                  </span>
-                )}
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
-                <div className="text-3xl font-extrabold text-brand-500 mb-6">{pkg.price}</div>
-                <ul className="space-y-3 mb-8">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-sm text-gray-600">
-                      <Check className="h-5 w-5 text-brand-500 flex-shrink-0 mt-0.5" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/contact"
-                  className={`block text-center font-bold py-3.5 rounded-xl transition-all ${
-                    pkg.popular
-                      ? "bg-brand-500 hover:bg-brand-600 text-white shadow-lg shadow-brand-500/25"
-                      : "bg-gray-100 hover:bg-gray-200 text-gray-900"
-                  }`}
-                >
-                  Get Started
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-16 lg:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -199,14 +137,13 @@ export default function InstallationPage() {
             Ready to get started?
           </h2>
           <p className="text-gray-500 text-lg mb-8">
-            Book a free consultation and we&apos;ll recommend the perfect Ring setup and
-            installation package for your home.
+            Book an installation and we&apos;ll have your device professionally set up in no time.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-full transition-all shadow-lg"
           >
-            Book Free Consultation
+            Book Installation
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

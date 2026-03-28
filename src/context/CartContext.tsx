@@ -9,7 +9,7 @@ interface CartContextType {
   isLoading: boolean;
   openCart: () => void;
   closeCart: () => void;
-  addItem: (variantId: string, quantity?: number) => Promise<void>;
+  addItem: (variantId: string, quantity?: number, attributes?: { key: string; value: string }[]) => Promise<void>;
   updateItem: (lineId: string, quantity: number) => Promise<void>;
   removeItem: (lineId: string) => Promise<void>;
 }
@@ -43,19 +43,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return newCart.id;
   }, [cart]);
 
-  const addItem = useCallback(async (variantId: string, quantity = 1) => {
+  const addItem = useCallback(async (variantId: string, quantity = 1, attributes?: { key: string; value: string }[]) => {
     setIsLoading(true);
     try {
       const cartId = await getOrCreateCart();
-      const updatedCart = await addToCart(cartId, variantId, quantity);
+      const updatedCart = await addToCart(cartId, variantId, quantity, attributes);
       setCart(updatedCart);
       setIsOpen(true);
     } catch (error) {
       console.error("Failed to add to cart:", error);
-      // If cart is invalid, create a new one and retry
       const newCart = await createCart();
       localStorage.setItem("shopify_cart_id", newCart.id);
-      const updatedCart = await addToCart(newCart.id, variantId, quantity);
+      const updatedCart = await addToCart(newCart.id, variantId, quantity, attributes);
       setCart(updatedCart);
       setIsOpen(true);
     } finally {

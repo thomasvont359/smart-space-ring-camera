@@ -347,10 +347,19 @@ export async function createCart(): Promise<ShopifyCart> {
   return data.cartCreate.cart;
 }
 
-export async function addToCart(cartId: string, variantId: string, quantity = 1): Promise<ShopifyCart> {
+export async function addToCart(
+  cartId: string,
+  variantId: string,
+  quantity = 1,
+  attributes?: { key: string; value: string }[]
+): Promise<ShopifyCart> {
+  const line: Record<string, unknown> = { merchandiseId: variantId, quantity };
+  if (attributes && attributes.length > 0) {
+    line.attributes = attributes;
+  }
   const data = await shopifyFetch<{ cartLinesAdd: { cart: ShopifyCart } }>(
     ADD_TO_CART_MUTATION,
-    { cartId, lines: [{ merchandiseId: variantId, quantity }] }
+    { cartId, lines: [line] }
   );
   return data.cartLinesAdd.cart;
 }

@@ -11,6 +11,7 @@ import { getProductFeatures, getFeatureIcon } from "@/data/productFeatures";
 import {
   Star, Truck, Shield, Wrench, Award, Check, Phone,
 } from "lucide-react";
+import BookingCalendar from "@/components/BookingCalendar";
 
 const categoryConfig: Record<string, { title: string; description: string; filter: (p: ShopifyProduct) => boolean }> = {
   doorbells: {
@@ -177,6 +178,7 @@ function ProductByHandle({ handle }: { handle: string }) {
   const [notFound, setNotFound] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [bookingSelection, setBookingSelection] = useState<{ date: string; timeSlot: string; dateLabel: string; slotLabel: string } | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -438,15 +440,31 @@ function ProductByHandle({ handle }: { handle: string }) {
               </div>
             )}
 
+            {/* Booking Calendar */}
+            {!isService && (
+              <div className="mb-6">
+                <BookingCalendar
+                  compact
+                  onSelectionChange={setBookingSelection}
+                />
+              </div>
+            )}
+
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-6">
-              {variantId && <AddToCartButton variantId={variantId} size="lg" className="flex-1" />}
-              <Link
-                href="/installation"
-                className="inline-flex items-center justify-center border-2 border-[#1a1a1a] text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white font-semibold text-sm px-8 py-3.5 rounded-full transition-colors"
-              >
-                Book Installation
-              </Link>
+            <div className="flex flex-col gap-3 mb-6">
+              {variantId && (
+                <AddToCartButton
+                  variantId={variantId}
+                  size="lg"
+                  className="w-full"
+                  attributes={bookingSelection ? [
+                    { key: "Installation Date", value: bookingSelection.dateLabel },
+                    { key: "Installation Time", value: bookingSelection.slotLabel },
+                    { key: "_booking_date", value: bookingSelection.date },
+                    { key: "_booking_slot", value: bookingSelection.timeSlot },
+                  ] : undefined}
+                />
+              )}
             </div>
 
             {/* ── Trust Strip ── */}

@@ -8,15 +8,16 @@ interface AddToCartButtonProps {
   variantId: string;
   className?: string;
   size?: "sm" | "md" | "lg";
+  attributes?: { key: string; value: string }[];
 }
 
-export default function AddToCartButton({ variantId, className = "", size = "md" }: AddToCartButtonProps) {
+export default function AddToCartButton({ variantId, className = "", size = "md", attributes }: AddToCartButtonProps) {
   const { addItem } = useCart();
   const [status, setStatus] = useState<"idle" | "loading" | "added">("idle");
 
   const handleClick = async () => {
     setStatus("loading");
-    await addItem(variantId);
+    await addItem(variantId, 1, attributes);
     setStatus("added");
     setTimeout(() => setStatus("idle"), 2000);
   };

@@ -1,0 +1,31 @@
+import { NextResponse } from "next/server";
+import { getAvailableSlots, AVAILABLE_DAYS } from "@/lib/googleCalendar";
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const date = searchParams.get("date");
+
+  if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return NextResponse.json({ error: "Invalid date format. Use YYYY-MM-DD" }, { status: 400 });
+  }
+
+  // Check the date is a valid available day (Mon/Wed/Thu)
+  const dateObj = new Date(date + "T12:00:00");
+  if (!AVAILABLE_DAYS.includes(dateObj.getDay())) {
+    return NextResponse.json({ slots: [] });
+  }
+
+  // Check date is in the future
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (dateObj < today) {
+    return NextResponse.json({ slots: [] });
+  }
+
+  const slots = await getAvailableSlots(date);
+
+  return NextResponse.json({
+    date,
+    slots: slots.map((s) => ({ label: s.label, value: s.value })),
+  });
+}

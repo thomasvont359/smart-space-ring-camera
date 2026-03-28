@@ -12,14 +12,14 @@ const bundles = [
   {
     name: "Driveway Bundle",
     description: "Video Doorbell + Floodlight Cam",
-    price: "From €349",
+    price: "From €659",
     image:
-      "https://images.ctfassets.net/2xsswpd01u70/5A1JdSRcakmssS97jvMCWr/8bb6c9a55d4e6bac1b7cb35883293242/Belem_Starlit_H2_tiles_HP_Desktop-Tablet-Mobile_735x552_2x.jpg",
+      "https://eu.ring.com/cdn/shop/files/variant-52307160990034-en-eu_31ab8c86-a453-4e7f-a1f9-849fc1d2413e_860x.png?v=1773731141",
     features: [
       "Ring Video Doorbell supplied & installed",
       "Ring Floodlight Cam supplied & installed",
       "Ring Chime included",
-      "3 tiers: Basic, Popular & Premium",
+      "Standard & Advanced tiers available",
       "Full app setup & configuration",
       "Wi-Fi signal check & optimisation",
     ],
@@ -28,7 +28,7 @@ const bundles = [
   {
     name: "Whole Home Bundle",
     description: "Video Doorbell + 2x Floodlight Cams",
-    price: "From €549",
+    price: "From €659",
     popular: true,
     image:
       "https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg",
@@ -36,7 +36,7 @@ const bundles = [
       "Ring Video Doorbell supplied & installed",
       "2x Ring Floodlight Cams (front & rear)",
       "Ring Chime included",
-      "3 tiers: Basic, Popular & Premium",
+      "Standard & Advanced tiers available",
       "Complete network optimisation",
       "Full app setup & user training",
     ],
@@ -45,9 +45,9 @@ const bundles = [
   {
     name: "Eldercare Bundle",
     description: "Video Doorbell + Digital Lockbox",
-    price: "From €249",
+    price: "From €349",
     image:
-      "https://images.ctfassets.net/2xsswpd01u70/4630K5xQIMBFiPIvP79fZt/af9fafa3caa9794de6fb44077253d242/Belem_Squirrelfish_H2_tiles_HP_Desktop-Tablet-Mobile_735x552_2x.jpg",
+      "https://eu.ring.com/cdn/shop/files/variant-16702725357591-en-eu_860x.png?v=1759386441",
     features: [
       "Basic Ring Video Doorbell supplied & installed",
       "Digital Lockbox for carer access",

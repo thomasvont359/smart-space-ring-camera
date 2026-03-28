@@ -29,7 +29,7 @@ const serviceCategories = [
     title: "Whole Home Bundle",
     description: "Video Doorbell + 2x Floodlights — complete home coverage.",
     href: "/services/bundles/whole-home",
-    filter: (p: ShopifyProduct) => p.handle.includes("whole-house") || p.handle.includes("whole-home"),
+    filter: (p: ShopifyProduct) => p.handle.includes("whole-home-bundle"),
   },
   {
     title: "Installation Only",

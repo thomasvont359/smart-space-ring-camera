@@ -19,8 +19,7 @@ export default function WholeHomeBundlePage() {
     getAllProducts()
       .then((all) => {
         const wholeHome = all.filter(
-          (p) => p.handle.includes("whole-house") || p.handle.includes("whole-home") ||
-            (p.title.toLowerCase().includes("whole") && p.tags.includes("Bundle"))
+          (p) => p.handle.includes("whole-home-bundle")
         );
         setProducts(wholeHome);
       })

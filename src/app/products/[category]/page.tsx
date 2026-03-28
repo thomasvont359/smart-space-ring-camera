@@ -364,7 +364,9 @@ function ProductByHandle({ handle }: { handle: string }) {
                   return (
                     <div key={option.name}>
                       <label className="block text-sm font-semibold text-[#1a1a1a] mb-1.5">
-                        {option.name.replace(/\s*\?\s*$/, "")}{isColour && selectedVal ? `: ${selectedVal}` : ""}
+                        {/accessor/i.test(option.name) && product.productType === "Video Doorbell"
+                          ? "Add An Accessory (One Chime Already Included)"
+                          : option.name.replace(/\s*\?\s*$/, "")}{isColour && selectedVal ? `: ${selectedVal}` : ""}
                       </label>
                       {isColour ? (
                         <div className="flex flex-wrap gap-3">

@@ -24,6 +24,12 @@ export const ringStockImages: Record<string, string> = {
   "ring-driveway-bundle-premium":
     "https://eu.ring.com/cdn/shop/files/product-22856112963607-media-en-eu_97181620-a6bd-4a37-9eb8-359c0a8bf46b_860x.jpg?v=1773731198",
 
+  // Driveway Bundles (new Standard/Advanced)
+  "driveway-bundle-standard":
+    "https://eu.ring.com/cdn/shop/files/variant-52307160990034-en-eu_31ab8c86-a453-4e7f-a1f9-849fc1d2413e_860x.png?v=1773731141",
+  "driveway-bundle-advanced":
+    "https://eu.ring.com/cdn/shop/files/product-22856112963607-media-en-eu_97181620-a6bd-4a37-9eb8-359c0a8bf46b_860x.jpg?v=1773731198",
+
   // Whole Home Bundles
   "whole-home-bundle-standard":
     "https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg",

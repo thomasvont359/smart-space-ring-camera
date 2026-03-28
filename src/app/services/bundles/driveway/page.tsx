@@ -18,7 +18,7 @@ export default function DrivewayBundlePage() {
   useEffect(() => {
     getAllProducts()
       .then((all) => {
-        const driveway = all.filter((p) => p.handle.includes("driveway-bundle"));
+        const driveway = all.filter((p) => p.handle === "driveway-bundle-standard" || p.handle === "driveway-bundle-advanced");
         setProducts(driveway);
       })
       .catch(console.error)

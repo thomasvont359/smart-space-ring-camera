@@ -23,7 +23,7 @@ const serviceCategories = [
     title: "Driveway Bundle",
     description: "Video Doorbell + Floodlight Cam — protect your front entrance.",
     href: "/services/bundles/driveway",
-    filter: (p: ShopifyProduct) => p.handle.includes("driveway-bundle"),
+    filter: (p: ShopifyProduct) => p.handle === "driveway-bundle-standard" || p.handle === "driveway-bundle-advanced",
   },
   {
     title: "Whole Home Bundle",

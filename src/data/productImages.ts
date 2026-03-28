@@ -24,6 +24,16 @@ export const ringStockImages: Record<string, string> = {
   "ring-driveway-bundle-premium":
     "https://eu.ring.com/cdn/shop/files/product-22856112963607-media-en-eu_97181620-a6bd-4a37-9eb8-359c0a8bf46b_860x.jpg?v=1773731198",
 
+  // Whole Home Bundles
+  "whole-home-bundle-standard":
+    "https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg",
+  "whole-home-bundle-advanced":
+    "https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg",
+
+  // Eldercare Bundle
+  "eldercare-bundle":
+    "https://eu.ring.com/cdn/shop/files/variant-16702725357591-en-eu_860x.png?v=1759386441",
+
   // Whole home calculator
   "whole-house-security-calculator":
     "https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg",

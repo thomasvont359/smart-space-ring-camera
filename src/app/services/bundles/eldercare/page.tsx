@@ -18,11 +18,16 @@ export default function EldercareBundlePage() {
   useEffect(() => {
     getAllProducts()
       .then((all) => {
-        // Show basic doorbells as the starting point for eldercare bundle
-        const doorbells = all.filter(
-          (p) => p.productType === "Video Doorbell" && !p.title.toLowerCase().includes("bundle") && !p.title.toLowerCase().includes("pro")
-        );
-        setProducts(doorbells);
+        // Show the eldercare bundle product, fall back to basic doorbells
+        const eldercare = all.filter((p) => p.handle === "eldercare-bundle");
+        if (eldercare.length > 0) {
+          setProducts(eldercare);
+        } else {
+          const doorbells = all.filter(
+            (p) => p.productType === "Video Doorbell" && !p.title.toLowerCase().includes("bundle") && !p.title.toLowerCase().includes("pro")
+          );
+          setProducts(doorbells);
+        }
       })
       .catch(console.error)
       .finally(() => setLoading(false));

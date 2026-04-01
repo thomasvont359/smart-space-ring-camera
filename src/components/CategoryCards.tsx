@@ -30,7 +30,7 @@ const packages = [
   },
   {
     name: "Installation-Only & Other Brands",
-    price: "From €79",
+    price: "From €139",
     features: [
       "Your existing device installed",
       "Ring, Eufy, Nest & Tapo supported",

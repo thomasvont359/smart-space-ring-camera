@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { Wrench, Clock, Shield, Wifi, ArrowRight, Phone } from "lucide-react";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Installation Only & Other Brands | Smart Space",
-  description:
-    "Professional installation for Ring, Eufy, Nest, and Tapo devices across Leinster. Same price for all brands.",
-};
+import { useState, useEffect } from "react";
+import { Wrench, Clock, Shield, Wifi } from "lucide-react";
+import { getProductByHandle, ShopifyProduct } from "@/lib/shopify";
+import AddToCartButton from "@/components/AddToCartButton";
+import BookingCalendar from "@/components/BookingCalendar";
 
 const services = [
   {
@@ -31,58 +29,55 @@ const services = [
   },
 ];
 
-
 const brands = [
-  { name: "Ring", logo: "/Ring.png" },
-  { name: "Eufy", logo: "/Eufy.png" },
-  { name: "Nest", logo: "/Nest_logo.png" },
+  { name: "Ring", logo: "/Ring.png", className: "h-14" },
+  { name: "Eufy", logo: "/Eufy.png", className: "h-14" },
+  { name: "Nest", logo: "/Nest_logo.png", className: "h-14" },
   { name: "Tapo", logo: "/Tapo.png", className: "h-28" },
 ];
 
-export default function InstallationOnlyPage() {
-  return (
-    <div className="pt-28 lg:pt-32">
-      {/* Hero */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block bg-brand-500/20 text-brand-400 text-sm font-semibold px-4 py-2 rounded-full mb-6">
-            Installation Only
-          </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
-            Already have a device?
-            <br />
-            <span className="text-brand-400">We&apos;ll install it.</span>
-          </h1>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Professional installation for all major smart home brands — same expert service, same price.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-full transition-all shadow-lg"
-            >
-              Book Installation
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <a
-              href="tel:+35315130424"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-semibold px-10 py-4 rounded-full hover:bg-white/10 transition-all"
-            >
-              <Phone className="h-4 w-4" />
-              Call Us Now
-            </a>
-          </div>
-        </div>
-      </section>
+function formatPrice(amount: string, currencyCode: string) {
+  return new Intl.NumberFormat("en-IE", { style: "currency", currency: currencyCode }).format(parseFloat(amount));
+}
 
+export default function InstallationOnlyPage() {
+  const [product, setProduct] = useState<ShopifyProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [bookingSelection, setBookingSelection] = useState<{ date: string; timeSlot: string; dateLabel: string; slotLabel: string } | null>(null);
+
+  useEffect(() => {
+    getProductByHandle("onsite-troubleshoot-installation-set-up-of-customer-bought-ring-products")
+      .then((p) => {
+        setProduct(p);
+        // Set default options
+        if (p?.options) {
+          const defaults: Record<string, string> = {};
+          p.options.forEach((o) => {
+            if (o.values.length > 0 && o.values[0] !== "Default Title") {
+              defaults[o.name] = o.values[0];
+            }
+          });
+          setSelectedOptions(defaults);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Find matching variant
+  const productOptions = product?.options?.filter((o) => !(o.values.length === 1 && o.values[0] === "Default Title")) ?? [];
+  const effectiveOptions = { ...Object.fromEntries(productOptions.map((o) => [o.name, o.values[0]])), ...selectedOptions };
+
+  const matchedVariant = product?.variants.edges.find((v) =>
+    v.node.selectedOptions?.every((so) => effectiveOptions[so.name] === so.value)
+  )?.node ?? product?.variants.edges[0]?.node;
+
+  const price = matchedVariant?.price ?? product?.priceRange.minVariantPrice;
+  const variantId = matchedVariant?.id;
+
+  return (
+    <div className="pt-32 lg:pt-36">
       {/* Supported Brands */}
       <section className="py-12 bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -104,8 +99,105 @@ export default function InstallationOnlyPage() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Configure & Book */}
       <section className="py-16 lg:py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
+              Configure Your Installation
+            </h2>
+            <p className="text-gray-500 text-lg max-w-xl mx-auto">
+              Tell us about your setup and choose a date
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="flex justify-center py-20">
+              <div className="w-10 h-10 border-4 border-brand-500 border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : product ? (
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Left: Options */}
+              <div className="space-y-6">
+                {/* Price */}
+                <div className="bg-gray-50 rounded-2xl p-6">
+                  <div className="text-sm text-gray-500 mb-1">Total price</div>
+                  <div className="text-3xl font-extrabold text-[#1a1a1a]">
+                    {price ? formatPrice(price.amount, price.currencyCode) : "—"}
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1">Professional installation included</div>
+                </div>
+
+                {/* Variant selectors */}
+                {productOptions.map((option) => {
+                  const selectedVal = effectiveOptions[option.name] ?? option.values[0];
+                  return (
+                    <div key={option.name}>
+                      <label className="block text-sm font-semibold text-[#1a1a1a] mb-2">
+                        {option.name.replace(/\s*\?\s*$/, "")}
+                      </label>
+                      {option.values.length <= 4 ? (
+                        <div className="flex flex-wrap gap-2">
+                          {option.values.map((val) => (
+                            <button
+                              key={val}
+                              onClick={() => setSelectedOptions((prev) => ({ ...prev, [option.name]: val }))}
+                              className={`px-4 py-2.5 rounded-xl text-sm font-medium border-2 transition-all ${
+                                selectedVal === val
+                                  ? "border-brand-500 bg-brand-500/5 text-brand-500"
+                                  : "border-gray-200 text-gray-600 hover:border-gray-300"
+                              }`}
+                            >
+                              {val}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <select
+                          value={selectedVal}
+                          onChange={(e) => setSelectedOptions((prev) => ({ ...prev, [option.name]: e.target.value }))}
+                          className="w-full border-2 border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 focus:border-brand-500 focus:outline-none transition-colors"
+                        >
+                          {option.values.map((val) => (
+                            <option key={val} value={val}>{val}</option>
+                          ))}
+                        </select>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* Add to Cart */}
+                {variantId && (
+                  <AddToCartButton
+                    variantId={variantId}
+                    size="lg"
+                    className="w-full"
+                    attributes={bookingSelection ? [
+                      { key: "Installation Date", value: bookingSelection.dateLabel },
+                      { key: "Installation Time", value: bookingSelection.slotLabel },
+                      { key: "_booking_date", value: bookingSelection.date },
+                      { key: "_booking_slot", value: bookingSelection.timeSlot },
+                    ] : undefined}
+                  />
+                )}
+              </div>
+
+              {/* Right: Booking Calendar */}
+              <div>
+                <BookingCalendar
+                  onSelectionChange={setBookingSelection}
+                />
+              </div>
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-20">Installation service not available at the moment.</p>
+          )}
+        </div>
+      </section>
+
+      {/* What's included */}
+      <section className="py-16 lg:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
@@ -119,7 +211,7 @@ export default function InstallationOnlyPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service) => (
               <div key={service.title} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 text-brand-500 rounded-2xl mb-5">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white text-brand-500 rounded-2xl mb-5 shadow-sm">
                   <service.icon className="h-7 w-7" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{service.title}</h3>
@@ -130,24 +222,6 @@ export default function InstallationOnlyPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
-            Ready to get started?
-          </h2>
-          <p className="text-gray-500 text-lg mb-8">
-            Book an installation and we&apos;ll have your device professionally set up in no time.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-full transition-all shadow-lg"
-          >
-            Book Installation
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }

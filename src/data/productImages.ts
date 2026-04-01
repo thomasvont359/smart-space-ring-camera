@@ -22,6 +22,8 @@ export const ringStockImages: Record<string, string> = {
 
   // Eldercare
   "eldercare-security-bundle": "/products/Eldercare bundle.png",
+  "onsite-troubleshoot-installation-set-up-of-customer-bought-ring-products":
+    "https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg",
 
   // Smart Keybox (for reference)
   "smart-keybox": "/products/smart-keybox.jpg",

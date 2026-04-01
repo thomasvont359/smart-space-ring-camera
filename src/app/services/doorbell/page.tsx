@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getAllProducts, ShopifyProduct } from "@/lib/shopify";
 import { getProductImage } from "@/data/productImages";
-import AddToCartButton from "@/components/AddToCartButton";
 import { Check, Info } from "lucide-react";
 
 function formatPrice(amount: string, currencyCode: string) {
@@ -75,8 +74,6 @@ export default function DoorbellServicePage() {
               const price = product.priceRange.minVariantPrice;
               const comparePrice = product.compareAtPriceRange?.minVariantPrice;
               const hasDiscount = comparePrice && parseFloat(comparePrice.amount) > parseFloat(price.amount);
-              const variantId = product.variants.edges[0]?.node.id;
-
               return (
                 <div key={product.id} className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
                   <Link href={`/services/${product.handle}`}>
@@ -121,7 +118,9 @@ export default function DoorbellServicePage() {
                         </li>
                       ))}
                     </ul>
-                    {variantId && <AddToCartButton variantId={variantId} size="sm" className="w-full" />}
+                    <Link href={`/services/${product.handle}`} className="block text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2 rounded-full transition-colors">
+                      View Options
+                    </Link>
                   </div>
                 </div>
               );

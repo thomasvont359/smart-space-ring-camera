@@ -154,7 +154,9 @@ export default function ServiceDetailPage() {
                 <img
                   src={allImages[selectedImage]}
                   alt={product.title}
-                  className="max-h-[60%] max-w-[60%] object-contain transition-opacity duration-300"
+                  className={`object-contain transition-opacity duration-300 ${
+                    product.productType === "Bundle" && product.handle.includes("whole-home") ? "max-h-[60%] max-w-[60%]" : "max-h-full max-w-full"
+                  }`}
                 />
               ) : (
                 <div className="text-gray-300 text-sm">No image available</div>
@@ -414,7 +416,7 @@ export default function ServiceDetailPage() {
                 <p className="text-white/70 mb-6">
                   Let Leinster&apos;s top-rated Ring installer handle everything. Sit back while we set up your new device for optimal performance.
                 </p>
-                <div className="grid sm:grid-cols-2 gap-3 mb-8">
+                <div className="grid sm:grid-cols-2 gap-3">
                   {[
                     "Professional mounting & wiring",
                     "Wi-Fi signal optimisation",
@@ -426,18 +428,6 @@ export default function ServiceDetailPage() {
                       <span className="text-sm text-white/90">{item}</span>
                     </div>
                   ))}
-                </div>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                  <div>
-                    <span className="text-3xl font-extrabold">From &euro;139</span>
-                    <span className="text-white/50 text-sm ml-2">per installation</span>
-                  </div>
-                  <Link
-                    href="/installation"
-                    className="inline-flex items-center justify-center bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm px-8 py-3.5 rounded-full transition-colors"
-                  >
-                    Book Installation
-                  </Link>
                 </div>
               </div>
             </div>

@@ -36,7 +36,7 @@ const serviceCategories = [
     description: "Already have a Ring, Eufy, Nest or Tapo device? We'll install it.",
     href: "/services/installation-only",
     filter: () => false,
-    staticImage: "https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg",
+    staticImage: "/products/installation.png",
   },
 ];
 
@@ -83,13 +83,13 @@ export default function ServicesPage() {
                   href={cat.href}
                   className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow"
                 >
-                  <div className="relative bg-transparent aspect-[4/3] flex items-center justify-center p-8">
+                  <div className="relative bg-transparent aspect-[4/3] flex items-center justify-center p-4 overflow-hidden rounded-t-2xl">
                     {image ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={image}
                         alt={cat.title}
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="max-h-full max-w-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
                     ) : (

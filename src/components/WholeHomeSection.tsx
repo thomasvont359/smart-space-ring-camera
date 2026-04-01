@@ -6,12 +6,13 @@ export default function WholeHomeSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="rounded-2xl overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.ctfassets.net/2xsswpd01u70/6oP3FvB0kESCnQarf0aZne/2a1822b84a39ba1bab9f9f36499bd03e/ring_products_build_your_system_mobile_2x.jpg"
-              alt="Build your Ring system"
+            <video
+              src="/products/Ring.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full h-auto"
-              loading="lazy"
             />
           </div>
           <div>

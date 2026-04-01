@@ -155,7 +155,7 @@ export default function ServiceDetailPage() {
                   src={allImages[selectedImage]}
                   alt={product.title}
                   className={`object-contain transition-opacity duration-300 ${
-                    product.productType === "Bundle" && product.handle.includes("whole-home") ? "max-h-[60%] max-w-[60%]" : "max-h-full max-w-full"
+                    "max-h-full max-w-full"
                   }`}
                 />
               ) : (

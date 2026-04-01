@@ -108,7 +108,7 @@ export default function BundlesPage() {
                 <img
                   src={bundle.image}
                   alt={bundle.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain p-4"
                   loading="lazy"
                 />
               </div>

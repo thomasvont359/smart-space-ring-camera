@@ -30,6 +30,7 @@ const serviceCategories = [
     description: "Video Doorbell + 2x Floodlights — complete home coverage.",
     href: "/services/bundles/whole-home",
     filter: (p: ShopifyProduct) => p.handle === "plus-whole-home-bundle" || p.handle === "pro-whole-home-bundle",
+    imageClass: "max-h-[70%] max-w-[70%]",
   },
   {
     title: "Installation Only",
@@ -89,7 +90,7 @@ export default function ServicesPage() {
                       <img
                         src={image}
                         alt={cat.title}
-                        className="max-h-full max-w-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+                        className={`${cat.imageClass || "max-h-full max-w-full"} object-cover rounded-xl group-hover:scale-105 transition-transform duration-300`}
                         loading="lazy"
                       />
                     ) : (

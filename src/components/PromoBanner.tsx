@@ -15,7 +15,7 @@ export default function PromoBanner() {
             href="/contact"
             className="inline-block bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm px-8 py-3 rounded-full transition-colors"
           >
-            Book Free Consultation
+            Contact Us
           </Link>
           <Link
             href="/services/installation-only"

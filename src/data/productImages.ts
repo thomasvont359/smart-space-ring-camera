@@ -21,7 +21,7 @@ export const ringStockImages: Record<string, string> = {
   "pro-whole-home-bundle": "/products/pro-wholehome-black-black.png",
 
   // Eldercare
-  "eldercare-security-bundle": "/products/plus-video-doorbell.png",
+  "eldercare-security-bundle": "/products/Eldercare bundle.png",
 
   // Smart Keybox (for reference)
   "smart-keybox": "/products/smart-keybox.jpg",
@@ -89,14 +89,12 @@ export const colourImages: Record<string, Record<string, string>> = {
   "plus-whole-home-bundle": {
     "Both Black": "/products/plus-wholehome-black-black.png",
     "Both White": "/products/plus-wholehome-white-white.png",
-    "Black Front / White Rear": "/products/plus-wholehome-black-white.png",
-    "White Front / Black Rear": "/products/plus-wholehome-white-white.png", // fallback - missing image
+    "Mixed (Black & White)": "/products/plus-wholehome-black-white.png",
   },
   "pro-whole-home-bundle": {
     "Both Black": "/products/pro-wholehome-black-black.png",
     "Both White": "/products/pro-wholehome-white-white.png",
-    "Black Front / White Rear": "/products/pro-wholehome-black-black.png", // fallback - missing image
-    "White Front / Black Rear": "/products/pro-wholehome-white-black.png",
+    "Mixed (Black & White)": "/products/pro-wholehome-white-black.png",
   },
 };
 

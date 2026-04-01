@@ -124,7 +124,7 @@ export default function AboutPage() {
             Ready to get started?
           </h2>
           <p className="text-gray-500 text-lg mb-8">
-            Book a free consultation and we&apos;ll help you find the perfect Ring setup for your home.
+            Get in touch and we&apos;ll help you find the perfect Ring setup for your home.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

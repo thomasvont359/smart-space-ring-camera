@@ -103,9 +103,9 @@ export default function BookingPage() {
         <div className="max-w-xl mx-auto px-4 text-center">
           <div className="bg-green-50 rounded-2xl p-10">
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-5" />
-            <h1 className="text-2xl font-extrabold text-gray-900 mb-3">Consultation Booked!</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 mb-3">Booking Confirmed!</h1>
             <p className="text-gray-600 mb-2">
-              Thanks, <span className="font-semibold">{contact.name}</span>. Your consultation is confirmed for:
+              Thanks, <span className="font-semibold">{contact.name}</span>. Your installation is confirmed for:
             </p>
             <div className="bg-white rounded-xl p-4 my-4 border border-green-200">
               <div className="flex items-center justify-center gap-2 text-lg font-bold text-gray-900">
@@ -150,7 +150,7 @@ export default function BookingPage() {
             Choose a Time
           </h1>
           <p className="text-gray-500">
-            Select a convenient date and time for your free consultation.
+            Select a convenient date and time for your installation.
           </p>
         </div>
 

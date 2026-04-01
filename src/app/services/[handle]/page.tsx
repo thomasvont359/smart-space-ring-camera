@@ -13,33 +13,6 @@ import {
 } from "lucide-react";
 import BookingCalendar from "@/components/BookingCalendar";
 
-const categoryConfig: Record<string, { title: string; description: string; filter: (p: ShopifyProduct) => boolean }> = {
-  doorbells: {
-    title: "Video Doorbells",
-    description: "See, hear, and speak to anyone at your door from anywhere with Ring Video Doorbells.",
-    filter: (p) => p.productType === "Video Doorbell" && !p.title.toLowerCase().includes("bundle"),
-  },
-  cameras: {
-    title: "Security Cameras",
-    description: "Keep watch over your home inside and out with Ring Security Cameras.",
-    filter: (p) => p.productType === "Security Cam",
-  },
-  bundles: {
-    title: "Bundles & Packs",
-    description: "Save more with Ring bundles. Complete home security packages at great prices.",
-    filter: (p) => {
-      const isBundleTag = p.tags.includes("Bundle");
-      const isBundleTitle = p.title.toLowerCase().includes("bundle") || p.title.toLowerCase().includes("calculator");
-      return (isBundleTag || isBundleTitle) && p.productType !== "Consultation";
-    },
-  },
-  services: {
-    title: "Other Brands",
-    description: "Explore our range of smart home products from other leading brands.",
-    filter: (p) => (p.productType === "Consultation" || p.productType === "Subscription") && !p.handle.includes("onsite-troubleshoot"),
-  },
-};
-
 function formatPrice(amount: string, currencyCode: string) {
   return new Intl.NumberFormat("en-IE", { style: "currency", currency: currencyCode }).format(parseFloat(amount));
 }
@@ -57,121 +30,16 @@ function displayTitle(title: string): string {
   return result;
 }
 
-export default function CategoryPage() {
+// Map product types to service category pages for breadcrumbs
+const categoryBreadcrumbs: Record<string, { href: string; title: string }> = {
+  "Video Doorbell": { href: "/services/doorbell", title: "Video Doorbells" },
+  "Security Cam": { href: "/services/camera", title: "Floodlight Cameras" },
+};
+
+export default function ServiceDetailPage() {
   const params = useParams();
-  const category = params.category as string;
-  const [products, setProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const handle = params.handle as string;
 
-  const config = categoryConfig[category] ?? null;
-
-  useEffect(() => {
-    if (!config) {
-      setLoading(false);
-      return;
-    }
-    const filterFn = config.filter;
-    getAllProducts()
-      .then((all) => {
-        setProducts(all.filter(filterFn));
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
-
-  // If not a category, this might be a product handle - redirect logic handled by checking config
-  if (!config) {
-    return <ProductByHandle handle={category} />;
-  }
-
-  return (
-    <div className="pt-40 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-10">
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/" className="hover:text-brand-500">Home</Link>
-            <span>/</span>
-            <Link href="/products" className="hover:text-brand-500">Products</Link>
-            <span>/</span>
-            <span className="text-[#1a1a1a] font-medium">{config.title}</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1a1a1a] mb-3">{config.title}</h1>
-          <p className="text-gray-500 max-w-2xl">{config.description}</p>
-        </div>
-
-        {/* Loading */}
-        {loading && (
-          <div className="flex justify-center py-20">
-            <div className="w-10 h-10 border-4 border-brand-500 border-t-transparent rounded-full animate-spin" />
-          </div>
-        )}
-
-        {/* Products Grid */}
-        {!loading && products.length === 0 && (
-          <p className="text-gray-500 text-center py-20">No products found in this category.</p>
-        )}
-
-        {!loading && products.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => {
-              const image = getProductImage(product.handle, product.images.edges[0]?.node.url);
-              const price = product.priceRange.minVariantPrice;
-              const comparePrice = product.compareAtPriceRange?.minVariantPrice;
-              const hasDiscount = comparePrice && parseFloat(comparePrice.amount) > parseFloat(price.amount);
-              const variantId = product.variants.edges[0]?.node.id;
-
-              return (
-                <div key={product.id} className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
-                  <Link href={`/products/${product.handle}`}>
-                    <div className="relative bg-transparent aspect-square p-6 flex items-center justify-center">
-                      {image && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={image}
-                          alt={product.title}
-                          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                          loading="lazy"
-                        />
-                      )}
-                      {hasDiscount && (
-                        <span className="absolute top-4 left-4 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                          Save {formatPrice((parseFloat(comparePrice.amount) - parseFloat(price.amount)).toString(), price.currencyCode)}
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-                  <div className="p-5">
-                    <Link href={`/products/${product.handle}`}>
-                      <h3 className="font-bold text-[#1a1a1a] group-hover:text-brand-500 transition-colors mb-2">
-                        {displayTitle(product.title)}
-                      </h3>
-                    </Link>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-xl font-extrabold text-[#1a1a1a]">
-                        {formatPrice(price.amount, price.currencyCode)}
-                      </span>
-                      {hasDiscount && (
-                        <span className="text-sm text-gray-400 line-through">
-                          {formatPrice(comparePrice.amount, comparePrice.currencyCode)}
-                        </span>
-                      )}
-                    </div>
-                    {variantId && <AddToCartButton variantId={variantId} size="sm" className="w-full" />}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// Fallback: if the URL isn't a known category, treat it as a product handle
-function ProductByHandle({ handle }: { handle: string }) {
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
@@ -212,7 +80,7 @@ function ProductByHandle({ handle }: { handle: string }) {
     return (
       <div className="pt-40 text-center py-20">
         <h1 className="text-2xl font-bold text-[#1a1a1a] mb-4">Product not found</h1>
-        <Link href="/products" className="text-brand-500 hover:underline">Back to Products</Link>
+        <Link href="/services" className="text-brand-500 hover:underline">Back to Services</Link>
       </div>
     );
   }
@@ -222,11 +90,10 @@ function ProductByHandle({ handle }: { handle: string }) {
   const shopifyImages = product.images.edges.map((e) => e.node.url);
 
   // Detect category for breadcrumb
-  const categoryEntry = Object.entries(categoryConfig).find(([, cfg]) => {
-    try { return cfg.filter(product); } catch { return false; }
-  });
-  const categorySlug = categoryEntry?.[0];
-  const categoryTitle = categoryEntry?.[1]?.title;
+  const isBundle = product.tags.includes("Bundle") || product.title.toLowerCase().includes("bundle");
+  const categoryBreadcrumb = isBundle
+    ? { href: "/services/bundles", title: "Bundles" }
+    : categoryBreadcrumbs[product.productType] ?? null;
 
   // Build selected options with defaults (first value for each option)
   const productOptions = product.options?.filter((o) => {
@@ -264,12 +131,12 @@ function ProductByHandle({ handle }: { handle: string }) {
         <nav className="flex items-center gap-2 text-sm text-gray-400 mb-8">
           <Link href="/" className="hover:text-brand-500 transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/products" className="hover:text-brand-500 transition-colors">Products</Link>
-          {categorySlug && categoryTitle && (
+          <Link href="/services" className="hover:text-brand-500 transition-colors">Services</Link>
+          {categoryBreadcrumb && (
             <>
               <span>/</span>
-              <Link href={`/products/${categorySlug}`} className="hover:text-brand-500 transition-colors">
-                {categoryTitle}
+              <Link href={categoryBreadcrumb.href} className="hover:text-brand-500 transition-colors">
+                {categoryBreadcrumb.title}
               </Link>
             </>
           )}
@@ -281,13 +148,13 @@ function ProductByHandle({ handle }: { handle: string }) {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-14">
           {/* Left: Image Gallery */}
           <div>
-            <div className="bg-transparent rounded-2xl p-6 sm:p-10 flex items-center justify-center aspect-square mb-4">
+            <div className="bg-transparent rounded-2xl p-10 sm:p-16 flex items-center justify-center aspect-square mb-4">
               {allImages[selectedImage] ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={allImages[selectedImage]}
                   alt={product.title}
-                  className="max-h-full max-w-full object-contain transition-opacity duration-300"
+                  className="max-h-[60%] max-w-[60%] object-contain transition-opacity duration-300"
                 />
               ) : (
                 <div className="text-gray-300 text-sm">No image available</div>
@@ -367,7 +234,9 @@ function ProductByHandle({ handle }: { handle: string }) {
                   const colourMap: Record<string, string> = {
                     black: "#1a1a1a", white: "#ffffff", bronze: "#CD7F32", silver: "#C0C0C0",
                     "satin nickel": "#B8B8B8", grey: "#808080", gray: "#808080", blue: "#3B82F6",
+                    "both black": "#1a1a1a", "both white": "#ffffff",
                   };
+                  const isMixed = (v: string) => v.toLowerCase().includes("mixed");
                   const selectedVal = effectiveOptions[option.name] ?? option.values[0];
 
                   return (
@@ -380,21 +249,28 @@ function ProductByHandle({ handle }: { handle: string }) {
                       {isColour ? (
                         <div className="flex flex-wrap gap-3">
                           {option.values.map((val) => {
-                            const hex = colourMap[val.toLowerCase()] || "#ccc";
                             const isSelected = selectedVal === val;
+                            const mixed = isMixed(val);
+                            const hex = colourMap[val.toLowerCase()] || "#ccc";
                             return (
                               <button
                                 key={val}
                                 onClick={() => setSelectedOptions((prev) => ({ ...prev, [option.name]: val }))}
-                                className={`w-10 h-10 rounded-full border-2 transition-all relative ${
+                                className={`w-10 h-10 rounded-full border-2 transition-all relative overflow-hidden ${
                                   isSelected ? "border-brand-500 ring-2 ring-brand-500/30" : "border-gray-200 hover:border-gray-400"
                                 }`}
-                                style={{ backgroundColor: hex }}
+                                style={mixed ? undefined : { backgroundColor: hex }}
                                 title={val}
                               >
+                                {mixed && (
+                                  <>
+                                    <span className="absolute inset-0 w-1/2 bg-[#1a1a1a]" />
+                                    <span className="absolute inset-0 left-1/2 w-1/2 bg-white" />
+                                  </>
+                                )}
                                 {isSelected && (
-                                  <span className={`absolute inset-0 flex items-center justify-center text-sm font-bold ${
-                                    val.toLowerCase() === "white" ? "text-gray-800" : "text-white"
+                                  <span className={`absolute inset-0 flex items-center justify-center text-sm font-bold z-10 ${
+                                    val.toLowerCase().includes("white") && !mixed ? "text-gray-800" : "text-white"
                                   }`}>✓</span>
                                 )}
                               </button>
@@ -584,7 +460,7 @@ function ProductByHandle({ handle }: { handle: string }) {
         <section className="mt-16 lg:mt-24 text-center bg-gray-50 rounded-2xl p-8 sm:p-12">
           <h2 className="text-2xl font-extrabold text-[#1a1a1a] mb-3">Need help choosing?</h2>
           <p className="text-gray-500 mb-6 max-w-lg mx-auto">
-            Our Ring experts are here to help you find the perfect security setup for your home. Free, no-obligation consultation.
+            Our Ring experts are here to help you find the perfect security setup for your home.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
@@ -598,7 +474,7 @@ function ProductByHandle({ handle }: { handle: string }) {
               href="/contact"
               className="inline-flex items-center justify-center bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm px-8 py-3.5 rounded-full transition-colors"
             >
-              Book Free Consultation
+              Contact Us
             </Link>
           </div>
         </section>

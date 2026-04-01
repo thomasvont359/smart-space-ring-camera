@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: ShopifyProduct }) {
 
   return (
     <Link
-      href={`/products/${product.handle}`}
+      href={`/services/${product.handle}`}
       className="group block bg-transparent rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
     >
       {/* Image */}

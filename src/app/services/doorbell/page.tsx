@@ -79,7 +79,7 @@ export default function DoorbellServicePage() {
 
               return (
                 <div key={product.id} className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
-                  <Link href={`/products/${product.handle}`}>
+                  <Link href={`/services/${product.handle}`}>
                     <div className="relative bg-transparent aspect-square p-6 flex items-center justify-center">
                       {image && (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -98,7 +98,7 @@ export default function DoorbellServicePage() {
                     </div>
                   </Link>
                   <div className="p-5">
-                    <Link href={`/products/${product.handle}`}>
+                    <Link href={`/services/${product.handle}`}>
                       <h3 className="font-bold text-[#1a1a1a] group-hover:text-brand-500 transition-colors mb-2">
                         {product.title}
                       </h3>

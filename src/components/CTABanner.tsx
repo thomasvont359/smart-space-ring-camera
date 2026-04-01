@@ -18,8 +18,7 @@ export default function CTABanner() {
             Ready to Secure Your Home?
           </h2>
           <p className="text-white/80 text-lg max-w-xl leading-relaxed">
-            Get expert advice on the best Ring setup for your home. Free
-            consultation, no obligation. We&apos;re here to help.
+            Get expert advice on the best Ring setup for your home. We&apos;re here to help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 pt-2">
             <a
@@ -34,7 +33,7 @@ export default function CTABanner() {
               className="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-semibold px-10 py-4 rounded-full hover:bg-white/10 hover:border-white/50 transition-all text-base"
             >
               <Phone className="h-4 w-4" />
-              Book Consultation
+              Call Us
             </a>
           </div>
         </div>

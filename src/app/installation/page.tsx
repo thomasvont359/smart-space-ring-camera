@@ -5,7 +5,7 @@ import { Wrench, Clock, Shield, Wifi, Check, ArrowRight, Phone } from "lucide-re
 export const metadata: Metadata = {
   title: "Professional Installation | Smart Space",
   description:
-    "Professional Ring installation across Leinster. We mount, wire, connect, and configure your entire Ring system. Book a free consultation today.",
+    "Professional Ring installation across Leinster. We mount, wire, connect, and configure your entire Ring system.",
 };
 
 const services = [
@@ -101,7 +101,7 @@ export default function InstallationPage() {
               href="/contact"
               className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-full transition-all shadow-lg"
             >
-              Book Free Consultation
+              Contact Us
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
@@ -199,14 +199,14 @@ export default function InstallationPage() {
             Ready to get started?
           </h2>
           <p className="text-gray-500 text-lg mb-8">
-            Book a free consultation and we&apos;ll recommend the perfect Ring setup and
+            Get in touch and we&apos;ll recommend the perfect Ring setup and
             installation package for your home.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-full transition-all shadow-lg"
           >
-            Book Free Consultation
+            Contact Us
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

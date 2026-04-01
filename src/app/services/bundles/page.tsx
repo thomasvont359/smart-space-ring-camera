@@ -44,7 +44,7 @@ const bundles = [
     name: "Eldercare Security Bundle",
     description: "Video Doorbell + Smart Wi-Fi Keybox",
     price: "From €509",
-    image: "/products/smart-keybox.jpg",
+    image: "/products/Eldercare bundle.png",
     features: [
       "Ring Video Doorbell supplied & installed",
       "Smart Wi-Fi Keybox for carer access",

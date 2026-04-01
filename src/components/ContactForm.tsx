@@ -1,14 +1,13 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { Calendar } from "lucide-react";
+import { Send, Check } from "lucide-react";
 
 export default function ContactForm() {
-  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
 
@@ -21,9 +20,31 @@ export default function ContactForm() {
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
-    sessionStorage.setItem("bookingContact", JSON.stringify(data));
-    router.push("/booking");
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      setSubmitted(true);
+    } catch {
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  if (submitted) {
+    return (
+      <div className="text-center py-10">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-green-50 text-green-500 rounded-full mb-4">
+          <Check className="w-8 h-8" />
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+        <p className="text-gray-500">Thanks for getting in touch. We&apos;ll get back to you as soon as possible.</p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -80,7 +101,7 @@ export default function ContactForm() {
           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm bg-gray-50"
         >
           <option value="">Select a topic...</option>
-          <option value="consultation">Book a Consultation</option>
+          <option value="general">General Enquiry</option>
           <option value="installation">Installation Enquiry</option>
           <option value="product">Product Question</option>
           <option value="support">Support Request</option>
@@ -107,8 +128,8 @@ export default function ContactForm() {
         disabled={submitting}
         className="w-full sm:w-auto flex items-center justify-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-bold px-10 py-4 rounded-xl transition-all shadow-lg shadow-brand-500/25 text-base disabled:opacity-60"
       >
-        <Calendar className="h-4 w-4" />
-        {submitting ? "Redirecting..." : "Choose a Time"}
+        <Send className="h-4 w-4" />
+        {submitting ? "Sending..." : "Send Message"}
       </button>
     </form>
   );

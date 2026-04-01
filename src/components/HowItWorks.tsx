@@ -10,7 +10,7 @@ const steps = [
   {
     icon: ShoppingBag,
     title: "Order",
-    description: "Place your order online or book a free consultation with our team.",
+    description: "Place your order online or get in touch with our team.",
     step: "02",
   },
   {

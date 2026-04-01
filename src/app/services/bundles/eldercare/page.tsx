@@ -93,7 +93,7 @@ export default function EldercareBundlePage() {
 
                 return (
                   <div key={product.id} className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
-                    <Link href={`/products/${product.handle}`}>
+                    <Link href={`/services/${product.handle}`}>
                       <div className="relative bg-transparent aspect-square p-6 flex items-center justify-center">
                         {image && (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -112,7 +112,7 @@ export default function EldercareBundlePage() {
                       </div>
                     </Link>
                     <div className="p-5">
-                      <Link href={`/products/${product.handle}`}>
+                      <Link href={`/services/${product.handle}`}>
                         <h3 className="font-bold text-[#1a1a1a] group-hover:text-brand-500 transition-colors mb-2">
                           {product.title}
                         </h3>
@@ -190,7 +190,7 @@ export default function EldercareBundlePage() {
             href="/contact"
             className="inline-flex items-center gap-2 text-brand-500 hover:text-brand-600 font-semibold transition-colors"
           >
-            Need a complementary onsite consultation? Click here
+            Have questions? Contact us
           </Link>
         </div>
       </div>

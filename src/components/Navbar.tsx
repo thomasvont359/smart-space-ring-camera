@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <>
       {/* Promo strip */}
-      <div className="fixed top-0 left-0 right-0 z-[60] bg-brand-500 text-white text-center py-2 px-4 text-sm font-medium">
+      <div className="fixed top-0 left-0 right-0 z-[60] bg-brand-500 text-white text-center py-1 px-4 text-xs font-medium">
         We&apos;ve Expanded! Our award-winning eldercare services have moved to SmartCareLiving.{" "}
         <a href="https://smartcareliving.ie" target="_blank" rel="noopener noreferrer" className="underline font-bold">
           Learn More
@@ -39,10 +39,8 @@ export default function Navbar() {
 
       {/* Nav */}
       <header
-        className={`fixed top-[36px] left-0 right-0 z-50 transition-all duration-200 ${
-          scrolled || isOpen
-            ? "bg-white/95 backdrop-blur-md shadow-sm"
-            : "bg-transparent"
+        className={`fixed top-[24px] left-0 right-0 z-50 transition-all duration-200 bg-white ${
+          scrolled || isOpen ? "shadow-sm" : ""
         }`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

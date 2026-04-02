@@ -173,6 +173,8 @@ export default function InstallationOnlyPage() {
                     variantId={variantId}
                     size="lg"
                     className="w-full"
+                    disabled={!bookingSelection}
+                    disabledText="Select an Installation Date"
                     attributes={bookingSelection ? [
                       { key: "Installation Date", value: bookingSelection.dateLabel },
                       { key: "Installation Time", value: bookingSelection.slotLabel },

@@ -9,9 +9,11 @@ interface AddToCartButtonProps {
   className?: string;
   size?: "sm" | "md" | "lg";
   attributes?: { key: string; value: string }[];
+  disabled?: boolean;
+  disabledText?: string;
 }
 
-export default function AddToCartButton({ variantId, className = "", size = "md", attributes }: AddToCartButtonProps) {
+export default function AddToCartButton({ variantId, className = "", size = "md", attributes, disabled, disabledText }: AddToCartButtonProps) {
   const { addItem } = useCart();
   const [status, setStatus] = useState<"idle" | "loading" | "added">("idle");
 
@@ -31,7 +33,7 @@ export default function AddToCartButton({ variantId, className = "", size = "md"
   return (
     <button
       onClick={handleClick}
-      disabled={status === "loading"}
+      disabled={disabled || status === "loading"}
       className={`inline-flex items-center justify-center gap-2 font-semibold rounded-full transition-all ${sizeClasses[size]} ${
         status === "added"
           ? "bg-green-500 text-white"
@@ -41,7 +43,7 @@ export default function AddToCartButton({ variantId, className = "", size = "md"
       {status === "loading" && <Loader2 className="w-4 h-4 animate-spin" />}
       {status === "added" && <Check className="w-4 h-4" />}
       {status === "idle" && <ShoppingBag className="w-4 h-4" />}
-      {status === "loading" ? "Adding..." : status === "added" ? "Added!" : "Add to Cart"}
+      {status === "loading" ? "Adding..." : status === "added" ? "Added!" : disabled && disabledText ? disabledText : "Add to Cart"}
     </button>
   );
 }

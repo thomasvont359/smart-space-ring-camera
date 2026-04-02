@@ -329,6 +329,8 @@ export default function ServiceDetailPage() {
                   variantId={variantId}
                   size="lg"
                   className="w-full"
+                  disabled={!isService && !bookingSelection}
+                  disabledText="Select an Installation Date"
                   attributes={bookingSelection ? [
                     { key: "Installation Date", value: bookingSelection.dateLabel },
                     { key: "Installation Time", value: bookingSelection.slotLabel },
